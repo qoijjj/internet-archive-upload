@@ -1,5 +1,5 @@
-name: Upload files to an archive.org item
-author: Ben Welsh
+name: Upload files to an archive.org item - fork
+author: qoijj
 description: Automatically save files with the Internet Archive
 
 branding:
@@ -23,9 +23,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-
     - id: setup-python
       name: Setup Python
       uses: actions/setup-python@v5
