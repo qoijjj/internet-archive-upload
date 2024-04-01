@@ -33,6 +33,7 @@ runs:
       run: |
         python3 -m pip install --upgrade pip
         pip install internetarchive retry
+      shell: bash
 
     - id: upload-files
       name: Upload files
