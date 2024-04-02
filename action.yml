@@ -37,8 +37,30 @@ runs:
 
     - id: upload-files
       name: Upload files
-      run: python ${{ github.action_path }}/upload.py
-      shell: bash
+      run: |
+        import logging
+        import os
+
+        import internetarchive
+        from retry import retry
+
+        access_key = os.getenv("access-key")
+        secret_key = os.getenv("secret-key")
+        identifier = os.getenv("identifier")
+        files = os.getenv("files")
+
+        logging.basicConfig(level="DEBUG", format="%(asctime)s - %(name)s - %(message)s")
+        logger = logging.getLogger(__name__)
+
+        logger.debug(f"Uploading {files}")
+        kwargs = dict(
+            access_key=access_key,
+            secret_key=secret_key,
+            verbose=True,
+            files=files,
+        )
+        internetarchive.upload(identifier, **kwargs)
+      shell: python
       env:
           access-key: ${{ inputs.access-key }}
           secret-key: ${{ inputs.secret-key }}
